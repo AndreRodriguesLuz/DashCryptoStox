@@ -10,8 +10,15 @@ st.set_page_config(
     page_title="DashCryptoStox", page_icon="📈", layout="wide"
 )
 
-# Chave pessoal da Alpha Vantage
-ALPHA_VANTAGE_KEY = "JNCHBH9UKS1UN32Y"
+import os
+
+# Leitura segura da chave via Streamlit Cloud Secrets ou variáveis de ambiente
+try:
+  ALPHA_VANTAGE_KEY = st.secrets.get(
+      "ALPHA_VANTAGE_KEY", os.getenv("ALPHA_VANTAGE_KEY", "demo")
+  )
+except Exception:
+  ALPHA_VANTAGE_KEY = os.getenv("ALPHA_VANTAGE_KEY", "demo")
 
 # 2. CSS Customizado - Fundo mais claro e substituição total dos fundos brancos por azul claro
 st.markdown(
